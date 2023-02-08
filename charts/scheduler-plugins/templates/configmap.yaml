@@ -7,7 +7,7 @@ metadata:
     {{- include "scheduler-plugins.labels" . | nindent 4 }}
 data:
   scheduler-config.yaml: |
-    apiVersion: kubescheduler.config.k8s.io/v1beta1
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
     kind: KubeSchedulerConfiguration
     clientConnection:
       qps: {{ .Values.scheduler.qps }}
@@ -17,7 +17,7 @@ data:
       resourceName: {{ include "scheduler-plugins.fullname" . }}
     profiles:
     # Compose all plugins in one profile
-    - schedulerName: {{ include "scheduler-plugins.fullname" . }}-scheduler
+    - schedulerName: {{ include "scheduler-plugins.fullname" . }}
       plugins:
         {{- toYaml $.Values.plugins | nindent 8 }}
       {{- if $.Values.pluginConfig }}
